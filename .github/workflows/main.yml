@@ -63,7 +63,7 @@ jobs:
     name: Deploy
     needs: build_test
     runs-on: ubuntu-latest
-    if: github.ref == 'refs/head/main'
+    if: github.ref == 'refs/heads/main'
    
     steps:
     - name: Download Artifact
