@@ -30,6 +30,7 @@ jobs:
 
   build_test:
     # The type of runner that the job will run on
+    name: Build Test
     runs-on: ubuntu-latest
 
     # Steps represent a sequence of tasks that will be executed as part of the job
@@ -43,7 +44,7 @@ jobs:
           node-version: 16.x
          
       - name: Install packages
-        run: yarn install
+        run: yarn
       - name: Prettier
         run: yarn format
       - name: Lint
@@ -62,7 +63,7 @@ jobs:
     name: Deploy
     needs: build_test
     runs-on: ubuntu-latest
-    if: github.ref == 'refs/head/main'
+    if: github.ref == 'refs/heads/main'
    
     steps:
     - name: Download Artifact
