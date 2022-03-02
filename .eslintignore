@@ -1,7 +1,0 @@
-*.css
-*.svg
-node_modules/*
-config/*
-public/*
-scripts/*
-src/react-app-env.d.ts
