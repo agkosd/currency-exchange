@@ -10,7 +10,7 @@ interface CustomSelectProps {
   isMultipleSelect?: boolean;
 }
 
-const CustomSelect = ({
+const SingleSelect = ({
   currencyKeys,
   isMultipleSelect,
 }: CustomSelectProps) => {
@@ -42,4 +42,4 @@ const CustomSelect = ({
   );
 };
 
-export default CustomSelect;
+export default SingleSelect;
