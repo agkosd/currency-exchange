@@ -1,5 +1,5 @@
 import Select from 'Components/Select';
-import { fireEvent, render, screen, waitFor } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 describe('Custom Select', () => {
@@ -28,13 +28,22 @@ describe('Custom Select', () => {
 
     userEvent.click(currList);
     expect(screen.getAllByRole('option', { selected: true })).toHaveLength(2);
-    expect(screen.getByRole('option', { name: 'INR' }).selected).toBe(true);
-    expect(screen.getByRole('option', { name: 'USD' }).selected).toBe(true);
+    expect(
+      (screen.getByRole('option', { name: 'INR' }) as HTMLOptionElement)
+        .selected,
+    ).toBe(true);
+    expect(
+      (screen.getByRole('option', { name: 'USD' }) as HTMLOptionElement)
+        .selected,
+    ).toBe(true);
 
     userEvent.click(currList);
 
     await waitFor(() => userEvent.click(screen.getByText('INR')));
-    expect(screen.getByRole('option', { name: 'USD' }).selected).toBe(true);
+    expect(
+      (screen.getByRole('option', { name: 'USD' }) as HTMLOptionElement)
+        .selected,
+    ).toBe(true);
 
     userEvent.click(currList);
 

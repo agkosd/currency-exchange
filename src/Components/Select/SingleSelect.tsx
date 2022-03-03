@@ -32,7 +32,7 @@ const CustomSelect = ({
         multiple={isMultipleSelect}
         onChange={handleSingleSelectChange}
       >
-        {currencyKeys.map((currencyKey, idx) => (
+        {currencyKeys.map(currencyKey => (
           <MenuItem value={currencyKey} key={currencyKey}>
             {currencyKey}
           </MenuItem>

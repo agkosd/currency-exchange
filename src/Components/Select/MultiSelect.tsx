@@ -31,7 +31,7 @@ const MultiSelect = ({ currencyKeys }: MultiSelectProps) => {
         multiple={true}
         onChange={handleMultipleSelectChange}
       >
-        {currencyKeys.map((currencyKey, idx) => (
+        {currencyKeys.map(currencyKey => (
           <MenuItem value={currencyKey} key={currencyKey}>
             {currencyKey}
           </MenuItem>
