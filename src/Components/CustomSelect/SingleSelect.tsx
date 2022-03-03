@@ -17,7 +17,7 @@ const CustomSelect = ({
   const [currency, setCurrency] = useState<string>('');
 
   const handleSingleSelectChange = (event: SelectChangeEvent) => {
-    const value = event.target.value as string;
+    const value = event.target.value;
     setCurrency(value);
   };
 
