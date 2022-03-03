@@ -1,9 +1,9 @@
-import * as React from "react";
-import InputLabel from "@mui/material/InputLabel";
-import MenuItem from "@mui/material/MenuItem";
-import FormControl from "@mui/material/FormControl";
-import Select, { SelectChangeEvent } from "@mui/material/Select";
-import { useState } from "react";
+import * as React from 'react';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import Select, { SelectChangeEvent } from '@mui/material/Select';
+import { useState } from 'react';
 
 interface CustomSelectProps {
   currencyKeys: string[];
@@ -12,9 +12,9 @@ interface CustomSelectProps {
 
 const CustomSelect = ({
   currencyKeys,
-  isMultipleSelect
+  isMultipleSelect,
 }: CustomSelectProps) => {
-  const [currency, setCurrency] = useState<string>("");
+  const [currency, setCurrency] = useState<string>('');
 
   const handleSingleSelectChange = (event: SelectChangeEvent) => {
     const value = event.target.value as string;
@@ -27,7 +27,7 @@ const CustomSelect = ({
       <Select
         labelId="currency-select-list-label"
         id="currency-select-list"
-        label="Curreny List"
+        label="Currency List"
         value={currency}
         multiple={isMultipleSelect}
         onChange={handleSingleSelectChange}

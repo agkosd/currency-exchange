@@ -1,9 +1,9 @@
-import * as React from "react";
-import InputLabel from "@mui/material/InputLabel";
-import MenuItem from "@mui/material/MenuItem";
-import FormControl from "@mui/material/FormControl";
-import Select, { SelectChangeEvent } from "@mui/material/Select";
-import { useState } from "react";
+import * as React from 'react';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import Select, { SelectChangeEvent } from '@mui/material/Select';
+import { useState } from 'react';
 
 interface MultiSelectProps {
   currencyKeys: string[];
@@ -13,12 +13,12 @@ const MultiSelect = ({ currencyKeys }: MultiSelectProps) => {
   const [currency, setCurrency] = useState<string[]>([]);
 
   const handleMultipleSelectChange = (
-    event: SelectChangeEvent<typeof currency>
+    event: SelectChangeEvent<typeof currency>,
   ) => {
     const {
-      target: { value }
+      target: { value },
     } = event;
-    setCurrency(typeof value === "string" ? value.split(",") : value);
+    setCurrency(typeof value === 'string' ? value.split(',') : value);
   };
   return (
     <FormControl fullWidth>
@@ -26,7 +26,7 @@ const MultiSelect = ({ currencyKeys }: MultiSelectProps) => {
       <Select
         labelId="currency-select-list-label"
         id="currency-select-list"
-        label="Curreny List"
+        label="Currency List"
         value={currency}
         multiple={true}
         onChange={handleMultipleSelectChange}
