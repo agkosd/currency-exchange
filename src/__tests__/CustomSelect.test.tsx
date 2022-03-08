@@ -14,6 +14,7 @@ describe('Custom Select', () => {
     expect(screen.getAllByRole('option')).toHaveLength(5);
     await waitFor(() => userEvent.click(screen.getByText(/inr/i)));
     expect(screen.getByRole('button')).toHaveTextContent(/inr/i);
+    userEvent.click(currList);
     await waitFor(() => userEvent.click(screen.getByText(/usd/i)));
     expect(screen.getByRole('button')).toHaveTextContent(/usd/i);
   });

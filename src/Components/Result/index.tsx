@@ -22,6 +22,7 @@ const Result = ({ results }: ResultProps) => {
     <Paper elevation={3}>
       {results.map(({ from, to, amount, result }, idx) => (
         <Box
+          data-testid="result-item"
           sx={{ padding: '2rem' }}
           key={`${from}-${idx}-${to}`}
         >{`${amount}${from} = ${result}${to}`}</Box>
