@@ -2,6 +2,9 @@
 
 This project is hosted at https://agkosd.github.io/currency-exchange/.
 
+## Approach
+Approach taken to solve this problem is described in Approach.md which can be accessed at - https://github.com/agkosd/currency-exchange/blob/main/Approach.md
+
 ## How to run
 1. Clone the repository
 2. yarn && yarn start
