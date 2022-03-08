@@ -5,11 +5,7 @@ const axiosInstance = axios.create({
   baseURL: 'https://api.exchangeratesapi.io/v1',
 });
 
-axiosInstance.interceptors.request.use(config => {
-  config.params = config.params || {};
-  config.params.access_key = `${process.env.ACCESS_KEY}`;
-  return config;
-});
+const accessKey = `${process.env.REACT_APP_API_KEY}`;
 
 const body = (response: AxiosResponse) => response.data;
 
@@ -18,13 +14,18 @@ const requests = {
 };
 
 export const CurrencyApi = {
-  getSymbols: (): Promise<Symbols> => requests.get('/symbols'),
+  getSymbols: (): Promise<Symbols> =>
+    requests.get(`/symbols?access_key=${accessKey}`),
   getLatestRates: (base: string, symbols: string): Promise<LatestRates> =>
-    requests.get(`/latest&base=${base}&symbols=${symbols}`),
+    requests.get(
+      `/latest?access_key=${accessKey}&base=${base}&symbols=${symbols}`,
+    ),
   convertCurrency: (
     from: string,
     to: string,
     amount: number,
   ): Promise<CurrencyConversion> =>
-    requests.get(`/convert/&from=${from}&to=${to}&amount=${amount}`),
+    requests.get(
+      `/convert?access_key=${accessKey}&from=${from}&to=${to}&amount=${amount}`,
+    ),
 };

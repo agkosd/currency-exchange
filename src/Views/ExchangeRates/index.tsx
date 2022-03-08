@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 
 import { CurrencyApi } from 'Apis/index';
+import { Link, useLocation } from 'react-router-dom';
 
 import Box from '@mui/material/Box';
 import CircularProgress from '@mui/material/CircularProgress';
@@ -22,6 +23,8 @@ const ButtonText = {
   '/latest-rates': 'Latest Rates',
 } as const;
 
+type PathName = keyof typeof ButtonText;
+
 const formatResults = (
   results: Record<string, number>,
   from: string,
@@ -35,15 +38,15 @@ const formatResults = (
 };
 
 const ExchangeRates = () => {
+  const { pathname } = useLocation();
   const [currencyList, setCurrencyList] = useState<Record<string, string>>(() =>
     localStorage.getItem('currencyList')
       ? JSON.parse(localStorage.getItem('currencyList') as string)
       : {},
   );
-  const isLatestRates = true;
+  const isLatestRates = pathname.includes('latest-rates');
   const [results, setResults] = useState<Result>([]);
-  const [inputValue, setInputValue] = useState(1);
-  const [isLoading, setIsLoading] = useState(false);
+
   const [status, setStatus] = useState<
     'Idle' | 'Loading' | 'Error' | 'Success'
   >('Idle');
@@ -66,6 +69,7 @@ const ExchangeRates = () => {
 
   const handleLatestRates = async (from: string, to: string) => {
     try {
+      setStatus('Loading');
       const response = await CurrencyApi.getLatestRates(from, to);
       const res = formatResults(response.rates, from);
       setResults(res);
@@ -82,9 +86,10 @@ const ExchangeRates = () => {
         const response = await CurrencyApi.getSymbols();
         const { symbols } = response;
         localStorage.setItem('currencyList', JSON.stringify(symbols));
-        setCurrencyList(symbols);
         setStatus('Success');
+        setCurrencyList(symbols);
       } catch (e) {
+        console.log(e);
         setStatus('Error');
       }
     };
@@ -110,6 +115,14 @@ const ExchangeRates = () => {
     );
   }
 
+  if (status === 'Error') {
+    return (
+      <Box>
+        something went wrong please <Link to="/">try again</Link>
+      </Box>
+    );
+  }
+
   return (
     <Box>
       <form
@@ -123,25 +136,31 @@ const ExchangeRates = () => {
             (baseCurr as HTMLInputElement).value,
             (targetCurr as HTMLInputElement).value,
           ];
-          if (true) {
+          if (!from || !to) {
+            alert('Select a value');
+            return;
+          }
+          if (!isLatestRates) {
             handleCurrencyConversion(num, from, to);
           } else {
             handleLatestRates(from, to);
           }
         }}
       >
-        <Input isLatestRates={true} />
+        <Input isLatestRates={isLatestRates} />
         <Select
           currencyKeys={Object.keys(currencyList)}
           isMultipleSelect={false}
         />
         <Select
           currencyKeys={Object.keys(currencyList)}
-          isMultipleSelect={true}
+          isMultipleSelect={isLatestRates}
         />
-        <Button text={'Latest Rates'} />
+        <Button text={ButtonText[pathname as PathName]} />
       </form>
-      {status === 'Success' && <ResultComp results={results} />}
+      {status === 'Success' && results.length && (
+        <ResultComp results={results} />
+      )}
     </Box>
   );
 };
